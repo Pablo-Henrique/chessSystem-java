@@ -1,4 +1,4 @@
-package com.company.boardgame;
+package com.company.boardlayer;
 
 public class Piece {
 

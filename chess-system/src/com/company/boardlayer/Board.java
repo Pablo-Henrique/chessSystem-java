@@ -1,4 +1,4 @@
-package com.company.boardgame;
+package com.company.boardlayer;
 
 public class Board {
 
@@ -29,5 +29,13 @@ public class Board {
 
     public void setColumns(int columns) {
         this.columns = columns;
+    }
+
+    public Piece piece(int row, int column) {
+        return pieces[row][column];
+    }
+
+    public Piece piece(Position position) {
+        return pieces[position.getRow()][position.getColumn()];
     }
 }
