@@ -1,5 +1,8 @@
 package com.company.boardlayer;
 
+import com.company.chesslayer.ChessPiece;
+import org.jetbrains.annotations.NotNull;
+
 public class Board {
 
     private int rows;
@@ -35,7 +38,12 @@ public class Board {
         return pieces[row][column];
     }
 
-    public Piece piece(Position position) {
+    public Piece piece(@NotNull Position position) {
         return pieces[position.getRow()][position.getColumn()];
+    }
+
+    public void placePiece(@NotNull Piece piece, @NotNull Position position) {
+        pieces[position.getRow()][position.getColumn()] = piece;
+        piece.position = position;
     }
 }

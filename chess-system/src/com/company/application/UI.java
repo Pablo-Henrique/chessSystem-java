@@ -13,7 +13,7 @@ public class UI {
             }
             System.out.println();
         }
-        System.out.println("  A B C D E F G H");
+        System.out.println("  1 2 3 4 5 6 7 8");
     }
 
     private static void printPiece(ChessPiece piece) {
