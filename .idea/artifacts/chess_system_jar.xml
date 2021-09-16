@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="chess-system:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/chess_system_jar</output-path>
+    <root id="root">
+      <element id="archive" name="chess-system.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="chess-system" />
+      </element>
+      <element id="file-copy" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/20.1.0/annotations-20.1.0.jar" />
+    </root>
+  </artifact>
+</component>

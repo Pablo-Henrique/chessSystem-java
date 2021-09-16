@@ -1,7 +1,10 @@
 package com.company.application;
 
 import com.company.chesslayer.ChessPiece;
+import com.company.chesslayer.ChessPosition;
 import com.company.chesslayer.Color;
+
+import java.util.Scanner;
 
 public class UI {
 
@@ -25,8 +28,14 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public static void printBoard(ChessPiece[][] pieces) {
+    public static ChessPosition readChessPosition(Scanner input) {
+        String in = input.next();
+        char column = in.charAt(0);
+        int row = Integer.parseInt(in.substring(1));
+        return new ChessPosition(column, row);
+    }
 
+    public static void printBoard(ChessPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {
             System.out.print(8 - i + " ");
             for (int j = 0; j < pieces.length; j++) {

@@ -1,7 +1,10 @@
 package com.company.chesslayer;
 
 import com.company.boardlayer.Board;
+import com.company.boardlayer.Piece;
+import com.company.boardlayer.Position;
 import com.company.chesslayer.chesspieces.*;
+import com.company.chesslayer.exception.ChessException;
 
 public class ChessMatch {
 
@@ -24,7 +27,28 @@ public class ChessMatch {
     }
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
-        board.placePiece(piece, new ChessPosition(row, column).toPosition());
+        board.placePiece(piece, new ChessPosition(column, row).toPosition());
+    }
+
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece) capturedPiece;
+    }
+
+    private Piece makeMove(Position source, Position target) {
+        ChessPiece p = (ChessPiece) board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+        board.placePiece(p, target);
+        return capturedPiece;
+    }
+
+    private void validateSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
+            throw new ChessException("There is no Piece on source position!");
+        }
     }
 
     public void initialSetup() {
@@ -63,6 +87,5 @@ public class ChessMatch {
         placeNewPiece('f', 7, new Pawn(board, Color.BLACK));
         placeNewPiece('g', 7, new Pawn(board, Color.BLACK));
         placeNewPiece('h', 7, new Pawn(board, Color.BLACK));
-
     }
 }
