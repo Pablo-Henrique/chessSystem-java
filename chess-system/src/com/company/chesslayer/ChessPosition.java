@@ -10,7 +10,7 @@ public class ChessPosition {
 
     public ChessPosition(char column_Char, int row_Number) {
         if (column_Char < 'a' || column_Char > 'h' || row_Number < 1 || row_Number > 8) {
-            throw new ChessException("Error instantiating ChessPosition. Valid values are from a1 to h8");
+            throw new ChessException("Error reading ChessPosition. Valid values are from a1 to h8");
         }
         this.row_Number = row_Number;
         this.column_Char = column_Char;
