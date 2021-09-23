@@ -2,8 +2,9 @@ package com.company.chesslayer;
 
 import com.company.boardlayer.Board;
 import com.company.boardlayer.Piece;
+import com.company.boardlayer.Position;
 
-public class ChessPiece extends Piece {
+public abstract class ChessPiece extends Piece {
 
     private Color color;
 
@@ -19,5 +20,8 @@ public class ChessPiece extends Piece {
         return color;
     }
 
-
+    protected boolean isThereOpponentPiece(Position position) {
+        ChessPiece piece = (ChessPiece) getBoard().piece(position);
+        return piece != null && piece.getColor() != color;
+    }
 }
