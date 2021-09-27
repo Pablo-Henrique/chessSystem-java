@@ -13,10 +13,8 @@ public class Main {
     public static void main(String[] args) {
         ChessMatch chessMatch = new ChessMatch();
 
-        Scanner input = new Scanner(System.in);
-
-        while (true) {
-            try {
+        try (Scanner input = new Scanner(System.in)) {
+            while (true) {
                 UI.clearScreen();
                 UI.printBoard(chessMatch.getPieces());
                 System.out.println();
@@ -24,18 +22,17 @@ public class Main {
                 ChessPosition source = UI.readChessPosition(input);
 
                 boolean[][] possibleMoves = chessMatch.possibleMoves(source);
-                UI.clearScreen();
                 UI.printBoard(chessMatch.getPieces(), possibleMoves);
 
+                UI.clearScreen();
                 System.out.println();
                 System.out.print("Target:");
                 ChessPosition target = UI.readChessPosition(input);
 
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-            } catch (ChessException | InputMismatchException exception) {
-                System.out.println(exception.getMessage());
-                input.nextLine();
             }
+        } catch (ChessException | InputMismatchException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 }
