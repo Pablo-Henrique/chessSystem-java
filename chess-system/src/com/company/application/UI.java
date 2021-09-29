@@ -1,10 +1,11 @@
 package com.company.application;
 
-import com.company.boardlayer.Piece;
+import com.company.chesslayer.ChessMatch;
 import com.company.chesslayer.ChessPiece;
 import com.company.chesslayer.ChessPosition;
 import com.company.chesslayer.Color;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
@@ -29,21 +30,37 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+    public UI() {
+    }
+
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     public static ChessPosition readChessPosition(Scanner input) {
-        String in = input.next();
-        char column = in.charAt(0);
-        int row = Integer.parseInt(in.substring(1));
-        return new ChessPosition(column, row);
+        try {
+            String s = input.nextLine();
+            char column = s.charAt(0);
+            int row = Integer.parseInt(s.substring(1));
+            return new ChessPosition(column, row);
+        }
+        catch (RuntimeException e) {
+            throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
+        }
+    }
+
+    public static void printMatch(ChessMatch match) {
+        printBoard(match.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + match.getTurn());
+        System.out.println("Waiting player: " + match.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {
-            System.out.print(8 - i + " ");
+            System.out.print((8 - i) + " ");
             for (int j = 0; j < pieces.length; j++) {
                 printPiece(pieces[i][j], false);
             }
@@ -54,7 +71,7 @@ public class UI {
 
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
         for (int i = 0; i < pieces.length; i++) {
-            System.out.print(8 - i + " ");
+            System.out.print((8 - i) + " ");
             for (int j = 0; j < pieces.length; j++) {
                 printPiece(pieces[i][j], possibleMoves[i][j]);
             }

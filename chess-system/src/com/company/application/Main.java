@@ -12,27 +12,29 @@ public class Main {
 
     public static void main(String[] args) {
         ChessMatch chessMatch = new ChessMatch();
+        Scanner input = new Scanner(System.in);
 
-        try (Scanner input = new Scanner(System.in)) {
-            while (true) {
+        while (true) {
+            try {
                 UI.clearScreen();
-                UI.printBoard(chessMatch.getPieces());
+                UI.printMatch(chessMatch);
                 System.out.println();
-                System.out.print("Source:");
+                System.out.print("Source: ");
                 ChessPosition source = UI.readChessPosition(input);
 
                 boolean[][] possibleMoves = chessMatch.possibleMoves(source);
-                UI.printBoard(chessMatch.getPieces(), possibleMoves);
-
                 UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces(), possibleMoves);
                 System.out.println();
-                System.out.print("Target:");
+                System.out.print("Target: ");
                 ChessPosition target = UI.readChessPosition(input);
 
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+
+            } catch (ChessException | InputMismatchException e) {
+                System.out.println(e.getMessage());
+                input.nextLine();
             }
-        } catch (ChessException | InputMismatchException exception) {
-            System.out.println(exception.getMessage());
         }
     }
 }
