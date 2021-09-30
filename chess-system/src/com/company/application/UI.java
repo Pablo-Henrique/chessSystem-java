@@ -5,7 +5,9 @@ import com.company.chesslayer.ChessPiece;
 import com.company.chesslayer.ChessPosition;
 import com.company.chesslayer.Color;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -45,14 +47,15 @@ public class UI {
             char column = s.charAt(0);
             int row = Integer.parseInt(s.substring(1));
             return new ChessPosition(column, row);
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
         }
     }
 
-    public static void printMatch(ChessMatch match) {
+    public static void printMatch(ChessMatch match, List<ChessPiece> capturedPieces) {
         printBoard(match.getPieces());
+        System.out.println();
+        printCapturedPieces(capturedPieces);
         System.out.println();
         System.out.println("Turn: " + match.getTurn());
         System.out.println("Waiting player: " + match.getCurrentPlayer());
@@ -88,11 +91,19 @@ public class UI {
             System.out.print("-" + ANSI_RESET);
         } else {
             if (piece.getColor() == Color.WHITE) {
-                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+                System.out.print(piece + ANSI_RESET);
             } else {
                 System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
             }
         }
         System.out.print(" ");
+    }
+
+    private static void printCapturedPieces(List<ChessPiece> capturedPieces) {
+        System.out.println("Captured Pieces");
+        System.out.print("WHITE: ");
+        System.out.println(Arrays.toString(capturedPieces.stream().filter(x -> x.getColor() == Color.WHITE).toArray()) + ANSI_RESET);
+        System.out.print("BLACK: ");
+        System.out.println(ANSI_YELLOW + Arrays.toString(capturedPieces.stream().filter(x -> x.getColor() == Color.BLACK).toArray()) + ANSI_RESET);
     }
 }
