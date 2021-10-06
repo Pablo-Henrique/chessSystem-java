@@ -37,7 +37,6 @@ public class Main {
                 if (capturedPiece != null) {
                     captured.add(capturedPiece);
                 }
-
             } catch (ChessException | InputMismatchException e) {
                 System.out.println(e.getMessage());
                 input.nextLine();
