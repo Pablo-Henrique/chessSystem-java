@@ -5,6 +5,7 @@ import com.company.chesslayer.ChessPiece;
 import com.company.chesslayer.ChessPosition;
 import com.company.chesslayer.exception.ChessException;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class Main {
@@ -36,7 +37,12 @@ public class Main {
                 }
                 if (chessMatch.getPromoted() != null) {
                     System.out.print("Enter piece for promotion (B/N/R/Q): ");
-                    chessMatch.replacePromotedPiece(input.nextLine().toUpperCase(Locale.ROOT));
+                    String type = input.nextLine().toUpperCase(Locale.ROOT);
+                    while (!type.equals("Q") && !type.equals("N") && !type.equals("R") && !type.equals("B")) {
+                        System.out.print("Enter piece for promotion (B/N/R/Q): ");
+                        type = input.nextLine().toUpperCase(Locale.ROOT);
+                    }
+                    chessMatch.replacePromotedPiece(type);
                 }
 
             } catch (ChessException | InputMismatchException e) {
