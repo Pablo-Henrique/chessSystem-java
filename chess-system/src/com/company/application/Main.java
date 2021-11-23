@@ -5,10 +5,7 @@ import com.company.chesslayer.ChessPiece;
 import com.company.chesslayer.ChessPosition;
 import com.company.chesslayer.exception.ChessException;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -37,6 +34,11 @@ public class Main {
                 if (capturedPiece != null) {
                     captured.add(capturedPiece);
                 }
+                if (chessMatch.getPromoted() != null) {
+                    System.out.print("Enter piece for promotion (B/N/R/Q): ");
+                    chessMatch.replacePromotedPiece(input.nextLine().toUpperCase(Locale.ROOT));
+                }
+
             } catch (ChessException | InputMismatchException e) {
                 System.out.println(e.getMessage());
                 input.nextLine();
